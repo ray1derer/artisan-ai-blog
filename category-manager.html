@@ -7,21 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #ffffff; /* 흰색 배경 */
-            color: #000000; /* 검은색 텍스트 */
-        }
-        .sidebar {
-            background-color: #f3f4f6; /* 밝은 회색 사이드바 */
-            color: #000000;
-        }
-        .card {
-            background-color: #f9fafb; /* 매우 밝은 회색 카드 */
-            border: 1px solid #e5e7eb; /* 회색 테두리 */
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="flex">
 
@@ -29,8 +15,8 @@
     <div id="sidebar-container"></div>
 
     <!-- Main Content -->
-    <div class="flex-1 p-8">
-        <h1 class="text-3xl font-bold mb-8">카테고리 관리</h1>
+    <div class="flex-1 p-12">
+        <h1 class="text-3xl font-bold mb-10">Categories</h1>
 
         <div id="categories-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- 동적으로 카테고리 목록을 여기에 삽입 -->

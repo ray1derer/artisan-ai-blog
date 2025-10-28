@@ -36,3 +36,35 @@ function loadLayoutAndInit(pageInitFunction) {
             .catch(error => console.error('레이아웃 로딩 중 오류:', error));
     });
 }
+
+// Toast 알림 함수
+function showToast(message, duration = 3000) {
+    const toast = document.createElement('div');
+    toast.textContent = message;
+    toast.style.position = 'fixed';
+    toast.style.bottom = '20px';
+    toast.style.left = '50%';
+    toast.style.transform = 'translateX(-50%)';
+    toast.style.backgroundColor = '#333';
+    toast.style.color = 'white';
+    toast.style.padding = '10px 20px';
+    toast.style.borderRadius = '5px';
+    toast.style.zIndex = '1000';
+    toast.style.opacity = '0';
+    toast.style.transition = 'opacity 0.3s ease-in-out';
+
+    document.body.appendChild(toast);
+
+    // Fade in
+    setTimeout(() => {
+        toast.style.opacity = '1';
+    }, 100);
+
+    // Fade out and remove
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => {
+            document.body.removeChild(toast);
+        }, 300);
+    }, duration);
+}

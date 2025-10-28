@@ -4,29 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>새 글 작성</title>
+    <!-- Toast UI Editor CSS -->
+    <link rel="stylesheet" href="https://uicdn.toast.com/editor/latest/toastui-editor.min.css" />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: #ffffff; /* 흰색 배경 */
-            color: #000000; /* 검은색 텍스트 */
-        }
-        .sidebar {
-            background-color: #f3f4f6; /* 밝은 회색 사이드바 */
-            color: #000000;
-        }
-        .form-input, .form-textarea, .form-select {
-            background-color: #f9fafb; /* 매우 밝은 회색 */
-            border-color: #e5e7eb; /* 회색 테두리 */
-            color: #000000; /* 검은색 텍스트 */
-        }
-        .form-input:focus, .form-textarea:focus, .form-select:focus {
-            border-color: #000000;
-            box-shadow: 0 0 0 1px #000000;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="flex">
 
@@ -34,40 +17,40 @@
     <div id="sidebar-container"></div>
 
     <!-- Main Content -->
-    <div class="flex-1 p-8">
-        <h1 class="text-3xl font-bold mb-8">새 글 작성</h1>
+    <div class="flex-1 p-12">
+        <h1 class="text-3xl font-bold mb-10">New Post</h1>
 
         <form id="post-form" class="space-y-6">
             <div>
-                <label for="title" class="block text-sm font-medium text-gray-700">제목</label>
+                <label for="title" class="block text-sm font-medium text-gray-700">Title</label>
                 <input type="text" id="title" name="title" required
                        class="form-input mt-1 block w-full rounded-md shadow-sm">
             </div>
 
             <div>
-                <label for="content" class="block text-sm font-medium text-gray-700">내용</label>
-                <textarea id="content" name="content" rows="10" required
-                          class="form-textarea mt-1 block w-full rounded-md shadow-sm"></textarea>
+                <label for="content" class="block text-sm font-medium text-gray-700">Content</label>
+                <!-- Toast UI Editor가 마운트될 div -->
+                <div id="editor" class="mt-1"></div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label for="category" class="block text-sm font-medium text-gray-700">카테고리</label>
+                    <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
                     <select id="category" name="category" required
                             class="form-select mt-1 block w-full rounded-md shadow-sm">
                         <!-- 카테고리 옵션을 동적으로 여기에 삽입 -->
                     </select>
                 </div>
                 <div>
-                    <label for="tags" class="block text-sm font-medium text-gray-700">태그 (쉼표로 구분)</label>
+                    <label for="tags" class="block text-sm font-medium text-gray-700">Tags (comma-separated)</label>
                     <input type="text" id="tags" name="tags"
                            class="form-input mt-1 block w-full rounded-md shadow-sm">
                 </div>
             </div>
 
             <div class="flex justify-end">
-                <button type="submit" class="bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded-lg">
-                    게시물 저장
+                <button type="submit" class="btn btn-primary">
+                    Save Post
                 </button>
             </div>
         </form>
@@ -75,8 +58,20 @@
 
     <script src="aws_blog_data_system.js"></script>
     <script src="app.js"></script>
+    <!-- Toast UI Editor JS -->
+    <script src="https://uicdn.toast.com/editor/latest/toastui-editor-all.min.js"></script>
     <script>
+        let editor; // editor 인스턴스를 전역적으로 접근 가능하게 선언
+
         loadLayoutAndInit(blogData => {
+            // Toast UI Editor 초기화
+            editor = new toastui.Editor({
+                el: document.querySelector('#editor'),
+                height: '500px',
+                initialEditType: 'markdown',
+                previewStyle: 'vertical'
+            });
+
             const categorySelect = document.getElementById('category');
             if (blogData && blogData.categories) {
                 blogData.categories.forEach(category => {
@@ -93,15 +88,18 @@
                 const formData = new FormData(form);
                 const postData = {
                     title: formData.get('title'),
-                    content: formData.get('content'),
+                    // 에디터의 내용을 Markdown으로 가져옴
+                    content: editor.getMarkdown(),
                     categoryId: parseInt(formData.get('category')),
                     tags: formData.get('tags').split(',').map(tag => tag.trim()),
                     status: 'published'
                 };
 
                 blogData.addPost(postData);
-                alert('게시물이 성공적으로 저장되었습니다.');
-                window.location.href = 'posts.html';
+                showToast('게시물이 성공적으로 저장되었습니다.');
+                setTimeout(() => {
+                    window.location.href = 'posts.html';
+                }, 1000); // 1초 후 페이지 이동
             });
         });
     </script>

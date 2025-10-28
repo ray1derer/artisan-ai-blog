@@ -1,0 +1,109 @@
+/* style.css */
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background-color: #f9fafb; /* 배경색을 약간 더 부드럽게 */
+    color: #1f2937; /* 글자색도 약간 더 부드럽게 */
+    font-size: 14px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* 제목 스타일 */
+h1.text-3xl {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+}
+
+h2.text-xl {
+    font-size: 18px;
+    font-weight: 600;
+    color: #111827;
+}
+
+/* 사이드바 */
+.sidebar {
+    background-color: #ffffff;
+    border-right: 1px solid #e5e7eb;
+    color: #1f2937;
+}
+
+/* 카드 */
+.card {
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px; /* 더 둥글게 */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05); /* 약간 더 강조된 그림자 */
+}
+
+.text-muted {
+    color: #6b7280;
+}
+
+/* 버튼 */
+.btn {
+    display: inline-block;
+    font-weight: 600;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: 0.75rem 1.5rem;
+    font-size: 14px;
+    border-radius: 8px;
+    transition: all 0.15s ease-in-out;
+}
+
+.btn-primary {
+    color: #ffffff;
+    background-color: #111827;
+    border-color: #111827;
+}
+
+.btn-primary:hover {
+    background-color: #374151;
+    border-color: #374151;
+}
+
+/* 폼 스타일 */
+.form-input, .form-textarea, .form-select {
+    background-color: #ffffff;
+    border: 1px solid #d1d5db;
+    color: #1f2937;
+    border-radius: 8px;
+}
+
+.form-input:focus, .form-textarea:focus, .form-select:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    outline: none;
+}
+
+/* 테이블 */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 1rem;
+    vertical-align: middle;
+}
+
+.table thead th {
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.table tbody tr:not(:last-child) {
+    border-bottom: 1px solid #f3f4f6;
+}
+
+/* Toast UI Editor */
+.toastui-editor-defaultUI {
+    border-color: #d1d5db;
+    border-radius: 8px;
+}
